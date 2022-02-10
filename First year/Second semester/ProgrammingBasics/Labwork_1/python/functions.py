@@ -4,21 +4,9 @@ def capture_text():
     :return: текст з консолі
     """
     print('Enter your text\nPress Enter to go to the next line\nPress Ctrl + D - to end writing')
-    text = ''
 
-    #import sys
-    #text = sys.stdin.read()
-
-    while True:
-        # зчитуємо текст, поки не буде помилки EOFError
-        # ця помилка означае, що функція input() отримала символ End Of File (Ctrl + D)
-        try:
-            line = input()
-        except EOFError:
-            break
-        text += line + '\n'
-        print(f'\nCurrent text:\n{text}\nEnter another line:')
-
+    import sys
+    text = sys.stdin.read()
 
     # відкидаємо зайвий символ \n
     text = text[:len(text) - 1]
@@ -87,7 +75,7 @@ def split_sentences(text: str):
     text = text.replace('\n', '.')
     sentences = text.split('.')
 
-    for i in range((len(sentences))):
+    for i in range(len(sentences)):
         # перевіряеємо, чи є у списку "пусті речення" (потрібно для того, щоб у список не заносився пустий елемент)
         if sentences[i] == '':
             sentences.pop(i)

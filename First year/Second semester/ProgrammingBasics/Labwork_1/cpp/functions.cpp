@@ -11,12 +11,20 @@ string capture_text(){
     while(int(line[0]) != ascii_code){
         getline(cin, line);
         text += line + '\n';
-        cout << "\nCurrent text:\n" << text << "Enter another line:\n";
     }
     // відкидаємо 4 зайвих символи (2 зайвих \n і ^D)
     text = text.substr(0, text.size()-4);
 
     return text;
+}
+
+void write_empty_file(const string& file_name, const string& text){
+    // потік write_file (для читання і запису)
+    ofstream write_file(file_name);
+    // записуємо текст у файл
+    write_file << text;
+    // закриваємо потік(файл)
+    write_file.close();
 }
 
 void print_vector(const vector<string>& vec){
@@ -135,15 +143,6 @@ void write_file(const string& file_name, const vector<string>& longest_words, ve
     for(int i=0; i < sentences.size(); i++){
         write_file << to_string(longest_words[i].size()) + " " + longest_words[i] + " | " + sentences[i] + "\n";
     }
-    // закриваємо потік(файл)
-    write_file.close();
-}
-
-void write_empty_file(const string& file_name, const string& text){
-    // потік write_file (для читання і запису)
-    ofstream write_file(file_name);
-    // записуємо текст у файл
-    write_file << text;
     // закриваємо потік(файл)
     write_file.close();
 }

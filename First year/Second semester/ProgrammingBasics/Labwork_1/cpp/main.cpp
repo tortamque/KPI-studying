@@ -2,7 +2,7 @@
 using namespace std;
 
 int main() {
-    // читаємо текст з консоли, поки не буде натиснуто комбінацію Ctrl+Enter
+    // читаємо текст з консоли, поки не буде натиснуто комбінацію Ctrl+D
     string text_to_write = capture_text();
     // записуємо цей текст у файл input.txt
     write_empty_file("input.txt", text_to_write);
@@ -18,7 +18,7 @@ int main() {
 
     // вектор з найдовшими словами кожного реченя
     vector<string> longest_words = get_longest_words(sentences);
-    // виводимо найдовшы слова в консоль
+    // виводимо найдовші слова в консоль
     print_longest_words(longest_words);
 
     // записуємо текст у файл output.txt

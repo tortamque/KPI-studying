@@ -1,6 +1,6 @@
 from functions import *
 
-# читаємо текст з консолі, поки не буде натиснуто клавішу Esc
+# читаємо текст з консолі, поки не буде натиснуто клавішу Ctrl + D
 text_to_write = capture_text()
 # записуємо цей текст у файл input.txt
 write_empty_file("input.txt", text_to_write)
