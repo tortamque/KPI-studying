@@ -2,10 +2,12 @@ import sys
 import datetime
 import time
 
+
 def read_todays_date():
     date = input("Enter today's date (in format dd.mm.yy): ")
 
     return date
+
 
 def capture_text():
     """
@@ -54,6 +56,7 @@ def split_lines(text: str):
 
 
 def split_information(lines: list[str]):
+    # двовимірний масив  із загальною інформацією (назва товару, дата покупки, термін гарантії)
     general_information = []
 
     for i in range(len(lines)):
@@ -70,17 +73,30 @@ def write_to_file(file_name: str, string_to_write: str):
 
 
 def check_warranty(information: list[list[str]], todays_date: str):
+    """
+    Формує файл із назвами виробів, у яких закінчився термін гарантії
+    :param information: масив з інформацією про вироби
+    :param todays_date: сьогоднішня дата
+    """
     for i in range(len(information)):
+        # дата покупки товару
         buy_date = information[i][1]
+        # дата покупки в форматі datetime (потрібно для того, щоб перевести дату в unix формат)
         buy_date_datetime = datetime.datetime.strptime(buy_date, '%d.%m.%y')
+        # переводимо дату покупки в unix формат
         buy_date_unix = time.mktime(buy_date_datetime.timetuple())
 
+        # термін гарантії
         warranty_term = int(information[i][2])
+        # термін закінчення гарантії (в unix форматі): дата покупки + термін гарантії * к-сть секунд в терміні гарантії
         warranty_expire_date = buy_date_unix + warranty_term * 86400
 
+        # сьогоднішня дата в форматі datetime
         todays_datetime = datetime.datetime.strptime(todays_date, '%d.%m.%y')
+        # сьогоднішня дата в форматі unix
         todays_date_unix = time.mktime(todays_datetime.timetuple())
 
+        # якщо сьогоднішня дата більша за дату закінчення гарантії (в форматах unix)
         if todays_date_unix > warranty_expire_date:
             print(f"Warranty have been expired for product {information[i][0]}")
 
@@ -90,7 +106,7 @@ def check_warranty(information: list[list[str]], todays_date: str):
 
 def write_empty_file(file_name: str, text: str):
     """
-    Записуємо текст у файл
+    Записує текст у файл
     :param file_name: назва файлу
     :param text:      текст
     """
